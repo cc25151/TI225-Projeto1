@@ -1,7 +1,8 @@
 import SwiftUI
 
-struct ContentView: View {
-    let categorias = ["tipo", "cor", "geração"]
+struct InicioView: View {
+    @Environment(RoteadorNavegacao.self) private var roteador
+    @State private var viewModel = InicioViewModel()
 
     var body: some View {
         ZStack {
@@ -13,8 +14,8 @@ struct ContentView: View {
                     .frame(width: 250, height: 250)
                 Spacer()
                 VStack(spacing: 12) {
-                    ForEach(categorias, id: \.self) { categoria in
-                        Button(action: {}) {
+                    ForEach(viewModel.categorias, id: \.self) { categoria in
+                        Button(action: { roteador.navegarPara(.galeria) }) {
                             Text("Buscar por \(categoria)")
                                 .font(.system(size: 24))
                                 .frame(maxWidth: .infinity)
@@ -38,5 +39,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    InicioView()
+        .environment(RoteadorNavegacao())
 }

@@ -4,7 +4,7 @@ import SwiftUI
 struct PokeApiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TelaRaizView()
         }
     }
 }
