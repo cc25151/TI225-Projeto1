@@ -8,10 +8,12 @@ struct TelaRaizView: View {
             InicioView()
                 .navigationDestination(for: Rota.self) { rota in
                     switch rota {
-                    case .galeria:
-                        GaleriaView()
-                    case .detalhes(let idPokemon):
-                        DetalhesView(idPokemon: idPokemon)
+                    case .galeria(let categoria):
+                        GaleriaView(categoria: categoria)
+                    case .detalhes(let pokemon):
+                        DetalhesView(pokemon: pokemon)
+                    case .inicio:
+                        InicioView()
                     }
                 }
         }

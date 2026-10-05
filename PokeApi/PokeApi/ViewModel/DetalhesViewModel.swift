@@ -1,10 +1,28 @@
 import SwiftUI
 
 @Observable
-final class DetalhesViewModel {
-    let idPokemon: Int
+class DetalhesViewModel {
+    var pokemonDetalhado: PokemonModel?
+    var carregando: Bool = false
+    var mensagemErro: String? = nil
 
-    init(idPokemon: Int) {
-        self.idPokemon = idPokemon
+    private let servico: PokeAPIService
+
+    init(servico: PokeAPIService = PokeAPIService()) {
+        self.servico = servico
+    }
+
+    @MainActor
+    func carregarDetalhes(pokemon: PokemonModel) async {
+        carregando = true
+        mensagemErro = nil
+
+        do {
+            pokemonDetalhado = try await servico.obterDetalhesCompletos(id: pokemon.id)
+        } catch {
+            mensagemErro = "Não foi possível carregar os detalhes: \(error.localizedDescription)"
+        }
+
+        carregando = false
     }
 }

@@ -1,4 +1,7 @@
+import Foundation
+
 enum Rota: Hashable {
-    case galeria
-    case detalhes(idPokemon: Int)
+    case inicio
+    case galeria(categoria: String)
+    case detalhes(pokemon: PokemonModel)
 }
